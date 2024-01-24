@@ -6,7 +6,7 @@ const FileAsync = require('lowdb/adapters/FileAsync');
 const shortid = require('shortid');
 
 const constants = require('./constants');
-const { validateButterfly, validateUser, validateId } = require('./validators');
+const { validateButterfly, validateUser } = require('./validators');
 
 async function createApp(dbPath) {
   const app = express();
