@@ -1,19 +1,18 @@
 'use strict';
 
 const express = require('express');
-const lowdb = require('lowdb');
-const FileAsync = require('lowdb/adapters/FileAsync');
 const shortid = require('shortid');
 
-const constants = require('./constants');
-const { validateButterfly, validateUser } = require('./validators');
+const { validateButterfly, validateButterflyRating, validateUser } = require('./validators');
+const { getButterfly, createButterfly, getAllButterflies, postButterflyRating } = require('./services/butterflyService');
+const { getUser, createUser, getAllUsers } = require('./services/userService');
 
-async function createApp(dbPath) {
+async function createApp() {
   const app = express();
   app.use(express.json());
 
-  const db = await lowdb(new FileAsync(dbPath));
-  await db.read();
+  const db = require('./database');
+  await db.loadDB();
 
   app.get('/', (req, res) => {
     res.json({ message: 'Server is running!' });
@@ -25,10 +24,8 @@ async function createApp(dbPath) {
    * Get an existing butterfly
    * GET
    */
-  app.get('/butterflies/:id', async (req, res) => {    
-    const butterfly = await db.get('butterflies')
-      .find({ id: req.params.id })
-      .value();
+  app.get('/butterflies/:id', async (req, res) => {
+    const butterfly = await getButterfly(req.params.id);
 
     if (!butterfly) {
       return res.status(404).json({ error: 'Not found' });
@@ -53,11 +50,48 @@ async function createApp(dbPath) {
       ...req.body
     };
 
-    await db.get('butterflies')
-      .push(newButterfly)
-      .write();
+    const butterfly = await createButterfly(newButterfly);
 
-    res.json(newButterfly);
+    res.json(butterfly);
+  });
+
+  /**
+   * Add Rating to a butterfly
+   * POST
+   */
+  app.post('/butterflies/addRating', async (req, res) => {
+    try {
+      validateButterflyRating(req.body);
+    } catch (error) {
+      return res.status(400).json({ error: 'Invalid request body' });
+    }
+
+    const butterflyRating = {
+      ...req.body,
+      date: new Date()
+    };
+
+    try {
+      await postButterflyRating(butterflyRating);
+    } catch (error) {
+      return res.status(500).json({ error: error });
+    }
+
+    res.status(200).json('Rating added succesfully');
+  });
+
+  /**
+  * Get all butterflies
+  * GET
+  */
+  app.get('/butterflies', async (req, res) => {
+    const butterfliesList = await getAllButterflies();
+
+    if (!butterfliesList) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+
+    res.json(butterfliesList);
   });
 
 
@@ -68,9 +102,11 @@ async function createApp(dbPath) {
    * GET
    */
   app.get('/users/:id', async (req, res) => {
-    const user = await db.get('users')
-      .find({ id: req.params.id })
-      .value();
+    // const user = await db.get('users')
+    //   .find({ id: req.params.id })
+    //   .value();
+
+    const user = await getUser(req.params.id);
 
     if (!user) {
       return res.status(404).json({ error: 'Not found' });
@@ -95,11 +131,27 @@ async function createApp(dbPath) {
       ...req.body
     };
 
-    await db.get('users')
-      .push(newUser)
-      .write();
+    // await db.get('users')
+    //   .push(newUser)
+    //   .write();
 
-    res.json(newUser);
+    const user = await createUser(newUser);
+
+    res.json(user);
+  });
+
+  /**
+   * Get all users
+   * GET
+   */
+  app.get('/users', async (req, res) => {
+    const usersList = await getAllUsers();
+
+    if (!usersList) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+
+    res.json(usersList);
   });
 
   return app;
@@ -108,7 +160,7 @@ async function createApp(dbPath) {
 /* istanbul ignore if */
 if (require.main === module) {
   (async () => {
-    const app = await createApp(constants.DB_PATH);
+    const app = await createApp();
     const port = process.env.PORT || 8000;
 
     app.listen(port, () => {
