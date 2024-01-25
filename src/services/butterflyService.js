@@ -1,28 +1,27 @@
 'use strict';
 
 const { getDB } = require('../database');
-
-/**
- * Gets the list of all butterflies
- */
-const getAllButterflies = async () => {
-    const db = getDB();
-    const butterfliesList = await db.get('butterflies').value();
-
-    return butterfliesList;
-};
+const { getUser } = require('./userService');
 
 /**
  * Gets the information of a butterfly
  * @param id butterfly id
  */
 const getButterfly = async (id) => {
-    const db = getDB();
-    const butterfly = await db.get('butterflies')
-        .find({ id: id })
-        .value();
+    try {
+        const db = getDB();
+        const butterfly = await db.get('butterflies')
+            .find({ id: id })
+            .value();
 
-    return butterfly;
+        if (!butterfly) {
+            throw `Butterfly with id ${id} does not exist`;
+        }
+
+        return butterfly;
+    } catch (error) {
+        throw error;
+    }
 };
 
 /**
@@ -30,12 +29,16 @@ const getButterfly = async (id) => {
  * @param butterfly butterfly information
  */
 const createButterfly = async (butterfly) => {
-    const db = getDB();
-    await db.get('butterflies')
-        .push(butterfly)
-        .write();
+    try {
+        const db = getDB();
+        await db.get('butterflies')
+            .push(butterfly)
+            .write();
 
-    return butterfly;
+        return butterfly;
+    } catch (error) {
+        throw error;
+    }
 };
 
 /**
@@ -43,35 +46,62 @@ const createButterfly = async (butterfly) => {
  * @param butterflyRating user's rating of the butterfly
  */
 const postButterflyRating = async (butterflyRating) => {
-    const db = getDB();
-
-    // Rating object on each butterfly
-    const rating = {
-        rating: butterflyRating?.rating,
-        review: butterflyRating?.review,
-        date: butterflyRating?.date
-    }
-
     try {
+        const db = getDB();
         const butterfly = await getButterfly(butterflyRating?.id);
         if (!butterfly) {
             throw `Butterfly with id ${butterflyRating?.id} does not exist`;
         }
 
+        const user = await getUser(butterflyRating?.userId);
+        if (!user) {
+            throw `User with id ${butterflyRating?.userId} does not exist`;
+        }
+
+        // Rating object on each butterfly
+        const rating = {
+            rating: butterflyRating?.rating,
+            review: butterflyRating?.review,
+            date: butterflyRating?.date
+        }
+
         // Rating are set as an object with the userId as key
-        // Assuming only one review per user. If a rating exists, the latest one
-        // will overwrite the previous rating
+        // Assuming only one rating per user. If a rating exists,
+        // latest rating will overwrite the previous rating
         butterfly['ratingByUsers'] = {
             ...butterfly['ratingByUsers'],
             [butterflyRating?.userId]: rating
         }
 
+        // Add the user's rating to the user's profile
+        user['ratedButterflies'] = {
+            ...user['ratedButterflies'],
+            [butterflyRating?.id]: rating
+        }
+
+        await db.write();
+
+        return butterfly;
     } catch (error) {
-        console.error("Ratings Error", error);
         throw error;
     }
+};
 
-    await db.write();
+/**
+ * Gets the list of all butterflies
+ */
+const getAllButterflies = async () => {
+    try {
+        const db = getDB();
+        const butterfliesList = await db.get('butterflies').value();
+        if (!butterfliesList) {
+            throw 'No butterflies found';
+        }
+
+        return butterfliesList;
+    } catch (error) {
+        throw error;
+    }
 };
 
 module.exports = {

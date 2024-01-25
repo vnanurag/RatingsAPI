@@ -68,13 +68,12 @@
       "ratingByUsers": {
         "86XJuTHt6": {
           "rating": 3,
-          "review": "Average butterfly",
-          "date": "2024-01-25T20:19:45.384Z"
+          "date": "2024-01-25T21:35:44.985Z"
         },
         "hsgsgw12": {
-          "rating": 4,
-          "review": "Good butterfly",
-          "date": "2024-01-25T20:19:54.630Z"
+          "rating": 5,
+          "review": "Great butterfly",
+          "date": "2024-01-25T20:47:24.257Z"
         }
       }
     },
@@ -92,7 +91,7 @@
         "86XJuTHt6": {
           "rating": 3,
           "review": "Average butterfly",
-          "date": "2024-01-25T20:24:11.078Z"
+          "date": "2024-01-25T21:07:51.025Z"
         }
       }
     }
@@ -128,7 +127,18 @@
     },
     {
       "id": "86XJuTHt6",
-      "username": "Test4"
+      "username": "Test4",
+      "ratedButterflies": {
+        "VOl23cra2": {
+          "rating": 3,
+          "date": "2024-01-25T21:35:44.985Z"
+        },
+        "xRKgs54": {
+          "rating": 3,
+          "review": "Average butterfly",
+          "date": "2024-01-25T21:07:51.025Z"
+        }
+      }
     },
     {
       "id": "_gL9kmzmT",

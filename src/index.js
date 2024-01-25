@@ -25,13 +25,13 @@ async function createApp() {
    * GET
    */
   app.get('/butterflies/:id', async (req, res) => {
-    const butterfly = await getButterfly(req.params.id);
+    try {
+      const butterfly = await getButterfly(req.params.id);
 
-    if (!butterfly) {
-      return res.status(404).json({ error: 'Not found' });
+      res.json(butterfly);
+    } catch (error) {
+      return res.status(404).json({ error: error });
     }
-
-    res.json(butterfly);
   });
 
   /**
@@ -45,14 +45,17 @@ async function createApp() {
       return res.status(400).json({ error: 'Invalid request body' });
     }
 
-    const newButterfly = {
-      id: shortid.generate(),
-      ...req.body
-    };
+    try {
+      const newButterfly = {
+        id: shortid.generate(),
+        ...req.body
+      };
+      const butterfly = await createButterfly(newButterfly);
 
-    const butterfly = await createButterfly(newButterfly);
-
-    res.json(butterfly);
+      res.json(butterfly);
+    } catch (error) {
+      return res.status(500).json({ error: error });
+    }
   });
 
   /**
@@ -63,21 +66,20 @@ async function createApp() {
     try {
       validateButterflyRating(req.body);
     } catch (error) {
-      return res.status(400).json({ error: 'Invalid request body' });
+      return res.status(400).json({ error: 'Invalid request body - Invalid rating/review' });
     }
 
-    const butterflyRating = {
-      ...req.body,
-      date: new Date()
-    };
-
     try {
-      await postButterflyRating(butterflyRating);
+      const butterflyRating = {
+        ...req.body,
+        date: new Date()
+      };
+      const butterfly = await postButterflyRating(butterflyRating);
+
+      res.json(butterfly);
     } catch (error) {
       return res.status(500).json({ error: error });
     }
-
-    res.status(200).json('Rating added succesfully');
   });
 
   /**
@@ -85,13 +87,13 @@ async function createApp() {
   * GET
   */
   app.get('/butterflies', async (req, res) => {
-    const butterfliesList = await getAllButterflies();
+    try {
+      const butterfliesList = await getAllButterflies();
 
-    if (!butterfliesList) {
-      return res.status(404).json({ error: 'Not found' });
+      res.json(butterfliesList);
+    } catch (error) {
+      return res.status(404).json({ error: error });
     }
-
-    res.json(butterfliesList);
   });
 
 
@@ -102,17 +104,13 @@ async function createApp() {
    * GET
    */
   app.get('/users/:id', async (req, res) => {
-    // const user = await db.get('users')
-    //   .find({ id: req.params.id })
-    //   .value();
+    try {
+      const user = await getUser(req.params.id);
 
-    const user = await getUser(req.params.id);
-
-    if (!user) {
-      return res.status(404).json({ error: 'Not found' });
+      res.json(user);
+    } catch (error) {
+      return res.status(404).json({ error: error });
     }
-
-    res.json(user);
   });
 
   /**
@@ -126,18 +124,18 @@ async function createApp() {
       return res.status(400).json({ error: 'Invalid request body' });
     }
 
-    const newUser = {
-      id: shortid.generate(),
-      ...req.body
-    };
-
-    // await db.get('users')
-    //   .push(newUser)
-    //   .write();
-
-    const user = await createUser(newUser);
-
-    res.json(user);
+    try {
+      const newUser = {
+        id: shortid.generate(),
+        ...req.body
+      };
+  
+      const user = await createUser(newUser);
+  
+      res.json(user);
+    } catch (error) {
+      return res.status(500).json({ error: error });
+    }
   });
 
   /**
@@ -145,13 +143,13 @@ async function createApp() {
    * GET
    */
   app.get('/users', async (req, res) => {
-    const usersList = await getAllUsers();
-
-    if (!usersList) {
-      return res.status(404).json({ error: 'Not found' });
+    try {
+      const usersList = await getAllUsers();
+  
+      res.json(usersList);
+    } catch (error) {
+      return res.status(404).json({ error: error });
     }
-
-    res.json(usersList);
   });
 
   return app;
