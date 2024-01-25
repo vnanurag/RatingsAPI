@@ -64,165 +64,37 @@
       "id": "VOl23cra2",
       "commonName": "Test5",
       "species": "Gonepteryx rhamni",
-      "article": "https://en.wikipedia.org/wiki/Gonepteryx_rhamni"
+      "article": "https://en.wikipedia.org/wiki/Gonepteryx_rhamni",
+      "ratingByUsers": {
+        "86XJuTHt6": {
+          "rating": 3,
+          "review": "Average butterfly",
+          "date": "2024-01-25T20:19:45.384Z"
+        },
+        "hsgsgw12": {
+          "rating": 4,
+          "review": "Good butterfly",
+          "date": "2024-01-25T20:19:54.630Z"
+        }
+      }
     },
     {
       "id": "xRKgs54",
       "commonName": "Test5",
       "species": "Gonepteryx rhamni",
       "article": "https://en.wikipedia.org/wiki/Gonepteryx_rhamni",
-      "ratingsByUser": [
-        {
-          "userId": "hsgsgw12",
+      "ratingByUsers": {
+        "hsgsgw12": {
           "rating": 4,
-          "review": "Great butterfly",
-          "date": "2024-01-25T05:48:22.789Z"
+          "review": "Good butterfly",
+          "date": "2024-01-25T20:24:11.060Z"
         },
-        {
-          "userId": "hsgsgw12",
+        "86XJuTHt6": {
           "rating": 3,
           "review": "Average butterfly",
-          "date": "2024-01-25T05:52:22.889Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 3,
-          "review": "Average butterfly",
-          "date": "2024-01-25T05:58:01.142Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 2,
-          "review": "Bad butterfly",
-          "date": "2024-01-25T06:22:02.124Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 2,
-          "review": "Bad butterfly",
-          "date": "2024-01-25T06:22:34.961Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 2,
-          "review": "Bad butterfly",
-          "date": "2024-01-25T06:32:33.535Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 1,
-          "review": "Very Bad butterfly",
-          "date": "2024-01-25T06:32:52.715Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 1,
-          "review": "Very Bad butterfly",
-          "date": "2024-01-25T06:34:07.812Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 1,
-          "review": "Very Bad butterfly",
-          "date": "2024-01-25T06:34:19.894Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 1,
-          "review": "Very Bad butterfly",
-          "date": "2024-01-25T06:35:16.662Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 1,
-          "review": "Very Bad butterfly",
-          "date": "2024-01-25T06:35:37.926Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T06:57:38.158Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T06:58:47.023Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T06:59:00.805Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:01:40.317Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:04:19.708Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:05:53.849Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:06:38.312Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:08:09.287Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:16:29.471Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:17:42.191Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 0,
-          "review": "Very Poor butterfly",
-          "date": "2024-01-25T07:20:03.990Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 5,
-          "review": "Great butterfly",
-          "date": "2024-01-25T07:24:29.054Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 5,
-          "review": "Great butterfly",
-          "date": "2024-01-25T07:24:35.870Z"
-        },
-        {
-          "userId": "hsgsgw12",
-          "rating": 5,
-          "review": "Great butterfly",
-          "date": "2024-01-25T07:24:56.112Z"
+          "date": "2024-01-25T20:24:11.078Z"
         }
-      ]
+      }
     }
   ],
   "users": [

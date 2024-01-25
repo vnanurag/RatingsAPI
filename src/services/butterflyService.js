@@ -40,14 +40,13 @@ const createButterfly = async (butterfly) => {
 
 /**
  * Posts rating to butterfly profile given by users
- * @param rating user's rating of the butterfly
+ * @param butterflyRating user's rating of the butterfly
  */
 const postButterflyRating = async (butterflyRating) => {
     const db = getDB();
 
     // Rating object on each butterfly
     const rating = {
-        userId: butterflyRating?.userId,
         rating: butterflyRating?.rating,
         review: butterflyRating?.review,
         date: butterflyRating?.date
@@ -59,11 +58,14 @@ const postButterflyRating = async (butterflyRating) => {
             throw `Butterfly with id ${butterflyRating?.id} does not exist`;
         }
 
-        // Add the rating to the existing array if ratings exist
-        // If no ratings exist, Set the ratings array
-        butterfly['ratingsByUser'] = butterfly['ratingsByUser']?.length > 0
-            ? [...butterfly['ratingsByUser'], rating]
-            : [rating];
+        // Rating are set as an object with the userId as key
+        // Assuming only one review per user. If a rating exists, the latest one
+        // will overwrite the previous rating
+        butterfly['ratingByUsers'] = {
+            ...butterfly['ratingByUsers'],
+            [butterflyRating?.userId]: rating
+        }
+
     } catch (error) {
         console.error("Ratings Error", error);
         throw error;
