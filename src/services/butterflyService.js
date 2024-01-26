@@ -1,6 +1,7 @@
 'use strict';
 
 const { getDB } = require('../database');
+const { sortRatings } = require('../utils');
 const { getUser } = require('./userService');
 
 /**
@@ -21,10 +22,7 @@ const getButterfly = async (id) => {
         // Sort the ratings based on user's rating, top rated first
         if (butterfly['ratingByUsers']) {
             butterfly['ratingByUsers'] = Object.fromEntries(
-                Object.entries(butterfly['ratingByUsers'])
-                    ?.sort(([key1, val1], [key2, val2]) => {
-                        return val2?.rating - val1?.rating
-                    })
+                sortRatings(Object.entries(butterfly['ratingByUsers']))
             );
         };
 
@@ -113,10 +111,7 @@ const getAllButterflies = async () => {
             // Sort the ratings based on user's rating, top rated first
             if (butterfly['ratingByUsers']) {
                 butterfly['ratingByUsers'] = Object.fromEntries(
-                    Object.entries(butterfly['ratingByUsers'])
-                        ?.sort(([key1, val1], [key2, val2]) => {
-                            return val2?.rating - val1?.rating
-                        })
+                    sortRatings(Object.entries(butterfly['ratingByUsers']))
                 );
             };
         })
@@ -128,8 +123,8 @@ const getAllButterflies = async () => {
 };
 
 module.exports = {
-    getAllButterflies,
     getButterfly,
     createButterfly,
-    postButterflyRating
+    postButterflyRating,
+    getAllButterflies
 };

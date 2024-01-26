@@ -1,6 +1,7 @@
 'use strict';
 
 const { getDB } = require('../database');
+const { sortRatings } = require('../utils');
 
 /**
  * Gets the information of a user
@@ -20,10 +21,7 @@ const getUser = async (id) => {
         // Sort the ratings based on user's rating, top rated first
         if (user['ratedButterflies']) {
             user['ratedButterflies'] = Object.fromEntries(
-                Object.entries(user['ratedButterflies'])
-                    ?.sort(([key1, val1], [key2, val2]) => {
-                        return val2?.rating - val1?.rating
-                    })
+                sortRatings(Object.entries(user['ratedButterflies']))
             );
         };
 
@@ -51,6 +49,27 @@ const createUser = async (user) => {
 };
 
 /**
+ * Gets the rated butterflies list of a user
+ * @param id user id
+ */
+const getUserRatedButterflies = async (id) => {
+    try {
+        const user = await getUser(id);
+        if (!user) {
+            throw `User with id ${id} does not exist`;
+        }
+
+        if (!user['ratedButterflies']) {
+            return null;
+        }
+
+        return user['ratedButterflies'];
+    } catch (error) {
+        throw error;
+    }
+}
+
+/**
  * Gets the list of all users
  */
 const getAllUsers = async () => {
@@ -65,10 +84,7 @@ const getAllUsers = async () => {
             // Sort the ratings based on user's rating, top rated first
             if (user['ratedButterflies']) {
                 user['ratedButterflies'] = Object.fromEntries(
-                    Object.entries(user['ratedButterflies'])
-                        ?.sort(([key1, val1], [key2, val2]) => {
-                            return val2?.rating - val1?.rating
-                        })
+                    sortRatings(Object.entries(user['ratedButterflies']))
                 );
             };
         })
@@ -80,7 +96,8 @@ const getAllUsers = async () => {
 };
 
 module.exports = {
-    getAllUsers,
     getUser,
-    createUser
+    createUser,
+    getUserRatedButterflies,
+    getAllUsers
 };

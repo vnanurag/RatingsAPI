@@ -5,7 +5,7 @@ const shortid = require('shortid');
 
 const { validateButterfly, validateButterflyRating, validateUser } = require('./validators');
 const { getButterfly, createButterfly, getAllButterflies, postButterflyRating } = require('./services/butterflyService');
-const { getUser, createUser, getAllUsers } = require('./services/userService');
+const { getUser, createUser, getAllUsers, getUserRatedButterflies } = require('./services/userService');
 
 async function createApp() {
   const app = express();
@@ -130,12 +130,34 @@ async function createApp() {
         id: shortid.generate(),
         ...req.body
       };
-  
+
       const user = await createUser(newUser);
-  
+
       res.json(user);
     } catch (error) {
       return res.status(500).json({ error: error });
+    }
+  });
+
+  /** Optional end point to get rated butterflies of a user
+   * This can be used if we don't need the ratings list on GET user/:id request
+   * We currently get the rated list on GET user:id request
+  */
+
+  /**
+  * Get a user's rated butterflies
+  * GET
+  */
+  app.get('/users/:id/ratings', async (req, res) => {
+    try {
+      const ratings = await getUserRatedButterflies(req.params.id);
+      if(!ratings) {
+        return res.json("No ratings yet")
+      }
+
+      res.json(ratings);
+    } catch (error) {
+      return res.status(404).json({ error: error });
     }
   });
 
@@ -147,7 +169,7 @@ async function createApp() {
   app.get('/users', async (req, res) => {
     try {
       const usersList = await getAllUsers();
-  
+
       res.json(usersList);
     } catch (error) {
       return res.status(404).json({ error: error });
