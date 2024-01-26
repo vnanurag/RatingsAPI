@@ -5,12 +5,100 @@
       "commonName": "test-butterfly",
       "species": "Testium butterflius",
       "article": "https://example.com/testium_butterflius"
+    },
+    {
+      "id": "wxyz98761",
+      "commonName": "test-butterfly-with-multiple-ratings",
+      "species": "Testium butterflius ratingus",
+      "article": "https://example.com/testium_butterflius_ratingus",
+      "ratingByUsers": {
+        "abcd12345": {
+          "rating": 5,
+          "review": "Great butterfly"
+        },
+        "abcd123456": {
+          "rating": 3
+        },
+        "abcd1234": {
+          "rating": 1,
+          "review": "Bad butterfly"
+        }
+      }
+    },
+    {
+      "id": "wxyz98762",
+      "commonName": "test-butterfly-with-one-rating",
+      "species": "Testium butterflius ratingus",
+      "article": "https://example.com/testium_butterflius_ratingus",
+      "ratingByUsers": {
+        "abcd1234": {
+          "rating": 4
+        }
+      }
+    },
+    {
+      "id": "wxyz987623",
+      "commonName": "test-butterfly-with-one-rating-and-review",
+      "species": "Testium butterflius ratingus",
+      "article": "https://example.com/testium_butterflius_ratingus",
+      "ratingByUsers": {
+        "abcd1234": {
+          "rating": 3,
+          "review": "Decent butterfly"
+        }
+      }
+    },
+    {
+      "id": "new-butterfly-id",
+      "commonName": "Boop",
+      "species": "Boopi beepi",
+      "article": "https://example.com/boopi_beepi"
     }
   ],
   "users": [
     {
       "id": "abcd1234",
-      "username": "test-user"
+      "username": "test-user-1",
+      "ratedButterflies": {
+        "wxyz98762": {
+          "rating": 4
+        },
+        "wxyz987623": {
+          "rating": 3,
+          "review": "Decent butterfly"
+        },
+        "wxyz98761": {
+          "rating": 1,
+          "review": "Bad butterfly"
+        }
+      }
+    },
+    {
+      "id": "abcd12345",
+      "username": "test-user-2",
+      "ratedButterflies": {
+        "wxyz98761": {
+          "rating": 5,
+          "review": "Great butterfly"
+        }
+      }
+    },
+    {
+      "id": "abcd123456",
+      "username": "test-user-3",
+      "ratedButterflies": {
+        "wxyz98761": {
+          "rating": 3
+        }
+      }
+    },
+    {
+      "id": "abcd1234567",
+      "username": "test-user-4"
+    },
+    {
+      "id": "new-user-id",
+      "username": "Buster"
     }
   ]
 }

@@ -2,12 +2,11 @@
 
 const lowdb = require('lowdb');
 const FileAsync = require('lowdb/adapters/FileAsync');
-const constants = require('./constants');
 
 let db;
 
-const loadDB = async () => {
-  db = await lowdb(new FileAsync(constants.DB_PATH));
+const loadDB = async (dbPath) => {
+  db = await lowdb(new FileAsync(dbPath));
   await db.read();
 };
 

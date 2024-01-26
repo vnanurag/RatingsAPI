@@ -4,21 +4,22 @@ const express = require('express');
 const shortid = require('shortid');
 
 const { validateButterfly, validateButterflyRating, validateUser } = require('./validators');
-const { getButterfly, createButterfly, getAllButterflies, postButterflyRating } = require('./services/butterflyService');
-const { getUser, createUser, getAllUsers, getUserRatedButterflies } = require('./services/userService');
+const { getButterfly, createButterfly, postButterflyRating } = require('./services/butterflyService');
+const { getUser, createUser } = require('./services/userService');
+const constants = require('./constants');
 
-async function createApp() {
+async function createApp(dbPath) {
   const app = express();
   app.use(express.json());
 
   const db = require('./database');
-  await db.loadDB();
+  await db.loadDB(dbPath);
 
   app.get('/', (req, res) => {
     res.json({ message: 'Server is running!' });
   });
 
-  /* ----- BUTTERFLIES ----- */
+  // #region BUTTERFLIES
 
   /**
    * Get an existing butterfly
@@ -54,7 +55,7 @@ async function createApp() {
 
       res.json(butterfly);
     } catch (error) {
-      return res.status(500).json({ error: error });
+      return res.status(500).json({ error: 'Internal Server error' });
     }
   });
 
@@ -71,8 +72,8 @@ async function createApp() {
 
     try {
       const butterflyRating = {
-        ...req.body,
-        date: new Date()
+        ...req.body
+        // date: new Date() // Optional date field for future use if needed
       };
       const butterfly = await postButterflyRating(butterflyRating);
 
@@ -87,18 +88,19 @@ async function createApp() {
   * Get all butterflies
   * GET
   */
-  app.get('/butterflies', async (req, res) => {
-    try {
-      const butterfliesList = await getAllButterflies();
+  // app.get('/butterflies', async (req, res) => {
+  //   try {
+  //     const butterfliesList = await getAllButterflies();
 
-      res.json(butterfliesList);
-    } catch (error) {
-      return res.status(404).json({ error: error });
-    }
-  });
+  //     res.json(butterfliesList);
+  //   } catch (error) {
+  //     return res.status(404).json({ error: error });
+  //   }
+  // });
+  // #endregion BUTTERFLIES
 
 
-  /* ----- USERS ----- */
+  // #region USERS
 
   /**
    * Get an existing user
@@ -135,7 +137,7 @@ async function createApp() {
 
       res.json(user);
     } catch (error) {
-      return res.status(500).json({ error: error });
+      return res.status(500).json({ error: 'Internal Server error' });
     }
   });
 
@@ -148,33 +150,34 @@ async function createApp() {
   * Get a user's rated butterflies
   * GET
   */
-  app.get('/users/:id/ratings', async (req, res) => {
-    try {
-      const ratings = await getUserRatedButterflies(req.params.id);
-      if (!ratings) {
-        return res.json('No ratings yet');
-      }
+  // app.get('/users/:id/ratings', async (req, res) => {
+  //   try {
+  //     const ratings = await getUserRatedButterflies(req.params.id);
+  //     if (!ratings) {
+  //       return res.json('No ratings yet');
+  //     }
 
-      res.json(ratings);
-    } catch (error) {
-      return res.status(404).json({ error: error });
-    }
-  });
+  //     res.json(ratings);
+  //   } catch (error) {
+  //     return res.status(404).json({ error: error });
+  //   }
+  // });
 
   /* -- Optional end point to get all users -- */
   /**
    * Get all users
    * GET
    */
-  app.get('/users', async (req, res) => {
-    try {
-      const usersList = await getAllUsers();
+  // app.get('/users', async (req, res) => {
+  //   try {
+  //     const usersList = await getAllUsers();
 
-      res.json(usersList);
-    } catch (error) {
-      return res.status(404).json({ error: error });
-    }
-  });
+  //     res.json(usersList);
+  //   } catch (error) {
+  //     return res.status(404).json({ error: error });
+  //   }
+  // });
+  // #endregion USERS
 
   return app;
 }
@@ -182,7 +185,7 @@ async function createApp() {
 /* istanbul ignore if */
 if (require.main === module) {
   (async () => {
-    const app = await createApp();
+    const app = await createApp(constants.DB_PATH);
     const port = process.env.PORT || 8000;
 
     app.listen(port, () => {

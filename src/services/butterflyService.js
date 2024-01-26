@@ -60,8 +60,8 @@ const postButterflyRating = async (butterflyRating) => {
   // Rating object on each butterfly
   const rating = {
     rating: butterflyRating.rating,
-    review: butterflyRating.review,
-    date: butterflyRating.date
+    review: butterflyRating.review
+    // date: butterflyRating.date // Optional for future use
   };
 
   // Rating are set as an object with the userId as key
@@ -86,29 +86,29 @@ const postButterflyRating = async (butterflyRating) => {
 /**
  * Gets the list of all butterflies
  */
-const getAllButterflies = async () => {
-  const db = getDB();
-  const butterfliesList = await db.get('butterflies').value();
+// const getAllButterflies = async () => {
+//   const db = getDB();
+//   const butterfliesList = await db.get('butterflies').value();
 
-  if (!butterfliesList) {
-    throw 'No butterflies found';
-  }
+//   if (!butterfliesList) {
+//     throw 'No butterflies found';
+//   }
 
-  butterfliesList.forEach((butterfly) => {
-    // Sort the ratings based on user's rating, top rated first
-    if (butterfly['ratingByUsers']) {
-      butterfly['ratingByUsers'] = Object.fromEntries(
-        sortRatings(Object.entries(butterfly['ratingByUsers']))
-      );
-    }
-  });
+//   butterfliesList.forEach((butterfly) => {
+//     // Sort the ratings based on user's rating, top rated first
+//     if (butterfly['ratingByUsers']) {
+//       butterfly['ratingByUsers'] = Object.fromEntries(
+//         sortRatings(Object.entries(butterfly['ratingByUsers']))
+//       );
+//     }
+//   });
 
-  return butterfliesList;
-};
+//   return butterfliesList;
+// };
 
 module.exports = {
   getButterfly,
   createButterfly,
-  postButterflyRating,
-  getAllButterflies
+  postButterflyRating
+//   getAllButterflies
 };

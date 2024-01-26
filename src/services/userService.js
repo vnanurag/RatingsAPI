@@ -44,44 +44,44 @@ const createUser = async (user) => {
  * Gets the rated butterflies list of a user
  * @param id user id
  */
-const getUserRatedButterflies = async (id) => {
-  const user = await getUser(id);
-  if (!user) {
-    throw `User with id ${id} does not exist`;
-  }
+// const getUserRatedButterflies = async (id) => {
+//   const user = await getUser(id);
+//   if (!user) {
+//     throw `User with id ${id} does not exist`;
+//   }
 
-  if (!user['ratedButterflies']) {
-    return null;
-  }
+//   if (!user['ratedButterflies']) {
+//     return null;
+//   }
 
-  return user['ratedButterflies'];
-};
+//   return user['ratedButterflies'];
+// };
 
 /**
  * Gets the list of all users
  */
-const getAllUsers = async () => {
-  const db = getDB();
-  const usersList = await db.get('users').value();
-  if (!usersList) {
-    throw 'No users found';
-  }
+// const getAllUsers = async () => {
+//   const db = getDB();
+//   const usersList = await db.get('users').value();
+//   if (!usersList) {
+//     throw 'No users found';
+//   }
 
-  usersList.forEach((user) => {
-    // Sort the ratings based on user's rating, top rated first
-    if (user['ratedButterflies']) {
-      user['ratedButterflies'] = Object.fromEntries(
-        sortRatings(Object.entries(user['ratedButterflies']))
-      );
-    }
-  });
+//   usersList.forEach((user) => {
+//     // Sort the ratings based on user's rating, top rated first
+//     if (user['ratedButterflies']) {
+//       user['ratedButterflies'] = Object.fromEntries(
+//         sortRatings(Object.entries(user['ratedButterflies']))
+//       );
+//     }
+//   });
 
-  return usersList;
-};
+//   return usersList;
+// };
 
 module.exports = {
   getUser,
-  createUser,
-  getUserRatedButterflies,
-  getAllUsers
+  createUser
+//   getUserRatedButterflies
+//   getAllUsers
 };
