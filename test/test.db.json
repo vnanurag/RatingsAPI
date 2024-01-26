@@ -1,0 +1,16 @@
+{
+  "butterflies": [
+    {
+      "id": "wxyz9876",
+      "commonName": "test-butterfly",
+      "species": "Testium butterflius",
+      "article": "https://example.com/testium_butterflius"
+    }
+  ],
+  "users": [
+    {
+      "id": "abcd1234",
+      "username": "test-user"
+    }
+  ]
+}
