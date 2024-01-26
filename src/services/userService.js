@@ -17,6 +17,16 @@ const getUser = async (id) => {
             throw `User with id ${id} does not exist`;
         }
 
+        // Sort the ratings based on user's rating, top rated first
+        if (user['ratedButterflies']) {
+            user['ratedButterflies'] = Object.fromEntries(
+                Object.entries(user['ratedButterflies'])
+                    ?.sort(([key1, val1], [key2, val2]) => {
+                        return val2?.rating - val1?.rating
+                    })
+            );
+        };
+
         return user;
     } catch (error) {
         throw error;
@@ -50,6 +60,18 @@ const getAllUsers = async () => {
         if (!usersList) {
             throw 'No users found';
         }
+
+        usersList?.forEach((user) => {
+            // Sort the ratings based on user's rating, top rated first
+            if (user['ratedButterflies']) {
+                user['ratedButterflies'] = Object.fromEntries(
+                    Object.entries(user['ratedButterflies'])
+                        ?.sort(([key1, val1], [key2, val2]) => {
+                            return val2?.rating - val1?.rating
+                        })
+                );
+            };
+        })
 
         return usersList;
     } catch (error) {

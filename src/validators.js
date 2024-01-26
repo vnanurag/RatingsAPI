@@ -14,9 +14,6 @@ const validateButterfly = v.assert(
 const validateButterflyRating = v.assert(
   v.strictShape({
     id: v.required(v.string),
-    commonName: v.required(v.string),
-    species: v.required(v.string),
-    article: v.required(v.string),
     userId: v.required(v.string),
     rating: v.required(v.range([0, 5])),
     review: v.string // adding  a review is optional

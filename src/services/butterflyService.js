@@ -18,6 +18,16 @@ const getButterfly = async (id) => {
             throw `Butterfly with id ${id} does not exist`;
         }
 
+        // Sort the ratings based on user's rating, top rated first
+        if (butterfly['ratingByUsers']) {
+            butterfly['ratingByUsers'] = Object.fromEntries(
+                Object.entries(butterfly['ratingByUsers'])
+                    ?.sort(([key1, val1], [key2, val2]) => {
+                        return val2?.rating - val1?.rating
+                    })
+            );
+        };
+
         return butterfly;
     } catch (error) {
         throw error;
@@ -94,9 +104,22 @@ const getAllButterflies = async () => {
     try {
         const db = getDB();
         const butterfliesList = await db.get('butterflies').value();
+
         if (!butterfliesList) {
             throw 'No butterflies found';
         }
+
+        butterfliesList?.forEach((butterfly) => {
+            // Sort the ratings based on user's rating, top rated first
+            if (butterfly['ratingByUsers']) {
+                butterfly['ratingByUsers'] = Object.fromEntries(
+                    Object.entries(butterfly['ratingByUsers'])
+                        ?.sort(([key1, val1], [key2, val2]) => {
+                            return val2?.rating - val1?.rating
+                        })
+                );
+            };
+        })
 
         return butterfliesList;
     } catch (error) {

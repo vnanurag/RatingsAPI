@@ -82,6 +82,7 @@ async function createApp() {
     }
   });
 
+  /* -- Optional end point to get all butterflies -- */
   /**
   * Get all butterflies
   * GET
@@ -138,6 +139,7 @@ async function createApp() {
     }
   });
 
+  /* -- Optional end point to get all users -- */
   /**
    * Get all users
    * GET
