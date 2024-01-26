@@ -151,8 +151,8 @@ async function createApp() {
   app.get('/users/:id/ratings', async (req, res) => {
     try {
       const ratings = await getUserRatedButterflies(req.params.id);
-      if(!ratings) {
-        return res.json("No ratings yet")
+      if (!ratings) {
+        return res.json('No ratings yet');
       }
 
       res.json(ratings);

@@ -7,15 +7,16 @@ const constants = require('./constants');
 let db;
 
 const loadDB = async () => {
-    db = await lowdb(new FileAsync(constants.DB_PATH));
-    await db.read();
-}
+  db = await lowdb(new FileAsync(constants.DB_PATH));
+  await db.read();
+};
 
 const getDB = () => {
-    return db;
-}
+  return db;
+};
 
 module.exports = {
-    loadDB,
-    getDB
-}
+  loadDB,
+  getDB
+};
+

@@ -8,27 +8,23 @@ const { sortRatings } = require('../utils');
  * @param id user id
  */
 const getUser = async (id) => {
-    try {
-        const db = getDB();
-        const user = await db.get('users')
-            .find({ id: id })
-            .value();
+  const db = getDB();
+  const user = await db.get('users')
+    .find({ id: id })
+    .value();
 
-        if (!user) {
-            throw `User with id ${id} does not exist`;
-        }
+  if (!user) {
+    throw `User with id ${id} does not exist`;
+  }
 
-        // Sort the ratings based on user's rating, top rated first
-        if (user['ratedButterflies']) {
-            user['ratedButterflies'] = Object.fromEntries(
-                sortRatings(Object.entries(user['ratedButterflies']))
-            );
-        };
+  // Sort the ratings based on user's rating, top rated first
+  if (user['ratedButterflies']) {
+    user['ratedButterflies'] = Object.fromEntries(
+      sortRatings(Object.entries(user['ratedButterflies']))
+    );
+  }
 
-        return user;
-    } catch (error) {
-        throw error;
-    }
+  return user;
 };
 
 /**
@@ -36,16 +32,12 @@ const getUser = async (id) => {
  * @param user user information
  */
 const createUser = async (user) => {
-    try {
-        const db = getDB();
-        await db.get('users')
-            .push(user)
-            .write();
+  const db = getDB();
+  await db.get('users')
+    .push(user)
+    .write();
 
-        return user;
-    } catch (error) {
-        throw error;
-    }
+  return user;
 };
 
 /**
@@ -53,51 +45,43 @@ const createUser = async (user) => {
  * @param id user id
  */
 const getUserRatedButterflies = async (id) => {
-    try {
-        const user = await getUser(id);
-        if (!user) {
-            throw `User with id ${id} does not exist`;
-        }
+  const user = await getUser(id);
+  if (!user) {
+    throw `User with id ${id} does not exist`;
+  }
 
-        if (!user['ratedButterflies']) {
-            return null;
-        }
+  if (!user['ratedButterflies']) {
+    return null;
+  }
 
-        return user['ratedButterflies'];
-    } catch (error) {
-        throw error;
-    }
-}
+  return user['ratedButterflies'];
+};
 
 /**
  * Gets the list of all users
  */
 const getAllUsers = async () => {
-    try {
-        const db = getDB();
-        const usersList = await db.get('users').value();
-        if (!usersList) {
-            throw 'No users found';
-        }
+  const db = getDB();
+  const usersList = await db.get('users').value();
+  if (!usersList) {
+    throw 'No users found';
+  }
 
-        usersList?.forEach((user) => {
-            // Sort the ratings based on user's rating, top rated first
-            if (user['ratedButterflies']) {
-                user['ratedButterflies'] = Object.fromEntries(
-                    sortRatings(Object.entries(user['ratedButterflies']))
-                );
-            };
-        })
-
-        return usersList;
-    } catch (error) {
-        throw error;
+  usersList.forEach((user) => {
+    // Sort the ratings based on user's rating, top rated first
+    if (user['ratedButterflies']) {
+      user['ratedButterflies'] = Object.fromEntries(
+        sortRatings(Object.entries(user['ratedButterflies']))
+      );
     }
+  });
+
+  return usersList;
 };
 
 module.exports = {
-    getUser,
-    createUser,
-    getUserRatedButterflies,
-    getAllUsers
+  getUser,
+  createUser,
+  getUserRatedButterflies,
+  getAllUsers
 };
