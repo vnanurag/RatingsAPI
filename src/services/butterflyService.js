@@ -38,6 +38,9 @@ const createButterfly = async (butterfly) => {
     .push(butterfly)
     .write();
 
+  // TODO return this and test
+  // const addedButterfly = await getButterfly(butterfly.id);
+
   return butterfly;
 };
 

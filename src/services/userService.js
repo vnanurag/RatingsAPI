@@ -37,6 +37,9 @@ const createUser = async (user) => {
     .push(user)
     .write();
 
+  // TODO return this and test
+  // const addedUser = await getUser(user.id);
+
   return user;
 };
 
