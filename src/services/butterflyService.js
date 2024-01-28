@@ -15,7 +15,7 @@ const getButterfly = async (id) => {
     .value();
 
   if (!butterfly) {
-    throw `Butterfly with id ${id} does not exist`;
+    throw new Error(`Butterfly with id ${id} does not exist`);
   }
 
   // Sort the ratings based on user's rating, top rated first
@@ -38,10 +38,8 @@ const createButterfly = async (butterfly) => {
     .push(butterfly)
     .write();
 
-  // TODO return this and test
-  // const addedButterfly = await getButterfly(butterfly.id);
-
-  return butterfly;
+  const addedButterfly = await getButterfly(butterfly.id);
+  return addedButterfly;
 };
 
 /**
@@ -52,22 +50,29 @@ const postButterflyRating = async (butterflyRating) => {
   const db = getDB();
   const butterfly = await getButterfly(butterflyRating.id);
   if (!butterfly) {
-    throw `Butterfly with id ${butterflyRating.id} does not exist`;
+    throw new Error(`Butterfly with id ${butterflyRating.id} does not exist`);
   }
 
   const user = await getUser(butterflyRating.userId);
   if (!user) {
-    throw `User with id ${butterflyRating.userId} does not exist`;
+    throw new Error(`User with id ${butterflyRating.userId} does not exist`);
   }
 
-  // Rating object on each butterfly
   const rating = {
-    rating: butterflyRating.rating,
-    review: butterflyRating.review
-    // date: butterflyRating.date // Optional for future use
+    rating: butterflyRating.rating
   };
 
-  // Rating are set as an object with the userId as key
+  // Optional for future use
+  if (butterflyRating.review){
+    rating['review'] = butterflyRating.review;
+  }
+
+  // Optional for future use
+  //   if (butterflyRating.date){
+  //     rating['date'] = butterflyRating.date;
+  //   }
+
+  // Rating is set as an object with the userId as key
   // Assuming only one rating per user. If a rating exists,
   // latest rating will overwrite the previous rating
   butterfly['ratingByUsers'] = {
@@ -94,7 +99,7 @@ const postButterflyRating = async (butterflyRating) => {
 //   const butterfliesList = await db.get('butterflies').value();
 
 //   if (!butterfliesList) {
-//     throw 'No butterflies found';
+//     throw new Error('No butterflies found');
 //   }
 
 //   butterfliesList.forEach((butterfly) => {

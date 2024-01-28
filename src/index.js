@@ -83,7 +83,8 @@ async function createApp(dbPath) {
     }
   });
 
-  /* -- Optional end point to get all butterflies -- */
+  // #region Optional end point to get all butterflies
+
   /**
   * Get all butterflies
   * GET
@@ -97,6 +98,8 @@ async function createApp(dbPath) {
   //     return res.status(404).json({ error: error });
   //   }
   // });
+  // #endregion Optional end point to get all butterflies
+
   // #endregion BUTTERFLIES
 
 
@@ -141,6 +144,8 @@ async function createApp(dbPath) {
     }
   });
 
+  // #region Optional end point to get rated butterflies of a user
+
   /** Optional end point to get rated butterflies of a user
    * This can be used if we don't need the ratings list on GET user/:id request
    * We currently get the rated list on GET user:id request
@@ -162,8 +167,9 @@ async function createApp(dbPath) {
   //     return res.status(404).json({ error: error });
   //   }
   // });
+  // #endregion Optional end point to get rated butterflies of a user
 
-  /* -- Optional end point to get all users -- */
+  // #region Optional end point to get all users
   /**
    * Get all users
    * GET
@@ -177,6 +183,9 @@ async function createApp(dbPath) {
   //     return res.status(404).json({ error: error });
   //   }
   // });
+  // #endregion Optional end point to get all users
+
+
   // #endregion USERS
 
   return app;

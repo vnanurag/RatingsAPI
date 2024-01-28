@@ -1,8 +1,6 @@
 'use strict';
 
 const path = require('path');
-const lowdb = require('lowdb');
-const FileAsync = require('lowdb/adapters/FileAsync');
 const request = require('supertest');
 const shortid = require('shortid');
 
@@ -34,104 +32,6 @@ let app;
 beforeAll(async () => {
   // Create a test database
   const testDbPath = path.join(__dirname, 'test.db.json');
-  const db = await lowdb(new FileAsync(testDbPath));
-
-  // Fill the test database with data
-  await db.setState({
-    butterflies: [
-      {
-        id: 'wxyz9876',
-        commonName: 'test-butterfly',
-        species: 'Testium butterflius',
-        article: 'https://example.com/testium_butterflius'
-      },
-      {
-        id: 'wxyz98761',
-        commonName: 'test-butterfly-with-multiple-ratings',
-        species: 'Testium butterflius ratingus',
-        article: 'https://example.com/testium_butterflius_ratingus',
-        ratingByUsers: {
-          abcd1234: {
-            rating: 1,
-            review: 'Bad butterfly'
-          },
-          abcd12345: {
-            rating: 5,
-            review: 'Great butterfly'
-          },
-          abcd123456: {
-            rating: 3
-          }
-        }
-      },
-      {
-        id: 'wxyz98762',
-        commonName: 'test-butterfly-with-one-rating',
-        species: 'Testium butterflius ratingus',
-        article: 'https://example.com/testium_butterflius_ratingus',
-        ratingByUsers: {
-          abcd1234: {
-            rating: 4
-          }
-        }
-      },
-      {
-        id: 'wxyz987623',
-        commonName: 'test-butterfly-with-one-rating-and-review',
-        species: 'Testium butterflius ratingus',
-        article: 'https://example.com/testium_butterflius_ratingus',
-        ratingByUsers: {
-          abcd1234: {
-            rating: 3,
-            review: 'Decent butterfly'
-          }
-        }
-      }
-    ],
-    users: [
-      {
-        id: 'abcd1234',
-        username: 'test-user-1',
-        ratedButterflies: {
-          wxyz98761: {
-            rating: 1,
-            review: 'Bad butterfly'
-          },
-          wxyz98762: {
-            rating: 4
-          },
-          wxyz987623: {
-            rating: 3,
-            review: 'Decent butterfly'
-          }
-        }
-      },
-      {
-        id: 'abcd12345',
-        username: 'test-user-2',
-        ratedButterflies: {
-          wxyz98761: {
-            rating: 5,
-            review: 'Great butterfly'
-          }
-        }
-      },
-      {
-        id: 'abcd123456',
-        username: 'test-user-3',
-        ratedButterflies: {
-          wxyz98761: {
-            rating: 3
-          }
-        }
-      },
-      {
-        id: 'abcd1234567',
-        username: 'test-user-4'
-      }
-    ]
-  }).write();
-
   // Create an app instance
   app = await createApp(testDbPath);
 });
@@ -325,27 +225,26 @@ describe('POST butterfly', () => {
     });
   });
 
-  // TODO
-  // it('error - internal server error', async () => {
-  //   shortid.generate = jest.fn().mockReturnValue('new-butterfly-id');
-  //   mockCreateButterfly.mockImplementation(() => {
-  //     throw 'error';
-  //   });
+  it('error - internal server error', async () => {
+    shortid.generate = jest.fn().mockReturnValue('new-butterfly-id');
+    mockButterflyValidator.mockImplementation(() => ({}));
+    mockCreateButterfly.mockImplementation(() => {
+      throw new Error('');
+    });
 
-  //   const postResponse = await request(app)
-  //     .post('/butterflies')
-  //     .send({
-  //       id: 'new-butterfly-id',
-  //       commonName: 'Boop',
-  //       species: 'Boopi beepi',
-  //       article: 'https://example.com/boopi_beepi'
-  //     });
+    const postResponse = await request(app)
+      .post('/butterflies')
+      .send({
+        commonName: 'Boop',
+        species: 'Boopi beepi',
+        article: 'https://example.com/boopi_beepi'
+      });
 
-  //   expect(postResponse.status).toBe(500);
-  //   expect(postResponse.body).toEqual({
-  //     error: 'Internal Server error'
-  //   });
-  // });
+    expect(postResponse.status).toBe(500);
+    expect(postResponse.body).toEqual({
+      error: 'Internal Server error'
+    });
+  });
 });
 
 describe('POST butterfly rating', () => {
@@ -922,20 +821,23 @@ describe('POST user', () => {
     });
   });
 
-  // TODO
-  // it('error - internal server error', async () => {
-  //   shortid.generate = jest.fn().mockReturnValue('new-user-id')();
+  it('error - internal server error', async () => {
+    shortid.generate = jest.fn().mockReturnValue('new-user-id');
+    mockUserValidator.mockImplementation(() => ({}));
+    mockCreateUser.mockImplementation(() => {
+      throw new Error('');
+    });
 
-  //   const postResponse = await request(app)
-  //     .post('/users')
-  //     .send({
-  //       username: 'Buster'
-  //     });
+    const postResponse = await request(app)
+      .post('/users')
+      .send({
+        username: 'Buster'
+      });
 
-  //   expect(postResponse.status).toBe(500);
-  //   expect(postResponse.body).toEqual({
-  //     error: 'Internal Server error'
-  //   });
-  // });
+    expect(postResponse.status).toBe(500);
+    expect(postResponse.body).toEqual({
+      error: 'Internal Server error'
+    });
+  });
 });
 // #endregion user tests

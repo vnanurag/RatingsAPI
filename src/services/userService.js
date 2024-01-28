@@ -14,7 +14,7 @@ const getUser = async (id) => {
     .value();
 
   if (!user) {
-    throw `User with id ${id} does not exist`;
+    throw new Error(`User with id ${id} does not exist`);
   }
 
   // Sort the ratings based on user's rating, top rated first
@@ -37,10 +37,8 @@ const createUser = async (user) => {
     .push(user)
     .write();
 
-  // TODO return this and test
-  // const addedUser = await getUser(user.id);
-
-  return user;
+  const addedUser = await getUser(user.id);
+  return addedUser;
 };
 
 /**
@@ -50,7 +48,7 @@ const createUser = async (user) => {
 // const getUserRatedButterflies = async (id) => {
 //   const user = await getUser(id);
 //   if (!user) {
-//     throw `User with id ${id} does not exist`;
+//     throw new Error(`User with id ${id} does not exist`);
 //   }
 
 //   if (!user['ratedButterflies']) {
@@ -67,7 +65,7 @@ const createUser = async (user) => {
 //   const db = getDB();
 //   const usersList = await db.get('users').value();
 //   if (!usersList) {
-//     throw 'No users found';
+//     throw new Error('No users found');
 //   }
 
 //   usersList.forEach((user) => {

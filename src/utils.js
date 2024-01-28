@@ -22,14 +22,16 @@ const sortRatings = (
           : 0;
     }
 
+    // Optional for future use
+
     // Sort by date
-    if (sortBy === 'date'){
-      return sortType === 'dsc'
-        ? new Date(val2.date).getMilliseconds() - new Date(val1.date).getMilliseconds()
-        : sortType === 'asc'
-          ? new Date(val1.date).getMilliseconds() - new Date(val2.date).getMilliseconds()
-          : 0;
-    }
+    // if (sortBy === 'date'){
+    //   return sortType === 'dsc'
+    //     ? new Date(val2.date).getMilliseconds() - new Date(val1.date).getMilliseconds()
+    //     : sortType === 'asc'
+    //       ? new Date(val1.date).getMilliseconds() - new Date(val2.date).getMilliseconds()
+    //       : 0;
+    // }
   });
 
   return ratings;

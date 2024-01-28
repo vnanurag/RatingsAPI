@@ -12,16 +12,16 @@
       "species": "Testium butterflius ratingus",
       "article": "https://example.com/testium_butterflius_ratingus",
       "ratingByUsers": {
-        "abcd1234": {
-          "rating": 1,
-          "review": "Bad butterfly"
-        },
         "abcd12345": {
           "rating": 5,
           "review": "Great butterfly"
         },
         "abcd123456": {
           "rating": 3
+        },
+        "abcd1234": {
+          "rating": 1,
+          "review": "Bad butterfly"
         }
       }
     },
@@ -47,6 +47,12 @@
           "review": "Decent butterfly"
         }
       }
+    },
+    {
+      "id": "new-butterfly-id",
+      "commonName": "Boop",
+      "species": "Boopi beepi",
+      "article": "https://example.com/boopi_beepi"
     }
   ],
   "users": [
