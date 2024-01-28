@@ -4,25 +4,45 @@
       "id": "GI9_EuH8s1",
       "commonName": "Zebra Swallowtail",
       "species": "Protographium marcellus",
-      "article": "https://en.wikipedia.org/wiki/Protographium_marcellus"
+      "article": "https://en.wikipedia.org/wiki/Protographium_marcellus",
+      "ratingByUsers": {
+        "0psSUT26s": {
+          "rating": 2
+        }
+      }
     },
     {
       "id": "xRKSdjkBt4",
       "commonName": "Plum Judy",
       "species": "Abisara echerius",
-      "article": "https://en.wikipedia.org/wiki/Abisara_echerius"
+      "article": "https://en.wikipedia.org/wiki/Abisara_echerius",
+      "ratingByUsers": {
+        "0psSUT26s": {
+          "rating": 5
+        }
+      }
     },
     {
       "id": "0MUBKMu07U",
       "commonName": "Red Pierrot",
       "species": "Talicada nyseus",
-      "article": "https://en.wikipedia.org/wiki/Talicada_nyseus"
+      "article": "https://en.wikipedia.org/wiki/Talicada_nyseus",
+      "ratingByUsers": {
+        "0psSUT26s": {
+          "rating": 1
+        }
+      }
     },
     {
       "id": "NLktii5zvK",
       "commonName": "Texan Crescentspot",
       "species": "Anthanassa texana",
-      "article": "https://en.wikipedia.org/wiki/Anthanassa_texana"
+      "article": "https://en.wikipedia.org/wiki/Anthanassa_texana",
+      "ratingByUsers": {
+        "0psSUT26s": {
+          "rating": 3
+        }
+      }
     },
     {
       "id": "SMyaT24g-N",
@@ -41,20 +61,80 @@
       "commonName": "",
       "species": "Gonepteryx rhamni",
       "article": "https://en.wikipedia.org/wiki/Gonepteryx_rhamni"
+    },
+    {
+      "id": "MVHP6WYI1",
+      "commonName": "Test1",
+      "species": "Gonepteryx rhamni",
+      "article": "https://en.wikipedia.org/wiki/Gonepteryx_rhamni",
+      "ratingByUsers": {
+        "0psSUT26s": {
+          "rating": 4
+        },
+        "sdmU7-wkQX": {
+          "rating": 2,
+          "review": "Bad butterfly"
+        },
+        "OOWzUaHLsK": {
+          "rating": 2,
+          "review": "Good butterfly"
+        },
+        "aqekk3t4kw": {
+          "rating": 1
+        }
+      }
     }
   ],
   "users": [
     {
       "id": "OOWzUaHLsK",
-      "username": "iluvbutterflies"
+      "username": "iluvbutterflies",
+      "ratedButterflies": {
+        "MVHP6WYI1": {
+          "rating": 2,
+          "review": "Good butterfly"
+        }
+      }
     },
     {
       "id": "sdmU7-wkQX",
-      "username": "flutterby"
+      "username": "flutterby",
+      "ratedButterflies": {
+        "MVHP6WYI1": {
+          "rating": 2,
+          "review": "Bad butterfly"
+        }
+      }
     },
     {
       "id": "aqekk3t4kw",
-      "username": "metamorphosize_me"
+      "username": "metamorphosize_me",
+      "ratedButterflies": {
+        "MVHP6WYI1": {
+          "rating": 1
+        }
+      }
+    },
+    {
+      "id": "0psSUT26s",
+      "username": "Test1",
+      "ratedButterflies": {
+        "xRKSdjkBt4": {
+          "rating": 5
+        },
+        "MVHP6WYI1": {
+          "rating": 4
+        },
+        "GI9_EuH8s1": {
+          "rating": 2
+        },
+        "0MUBKMu07U": {
+          "rating": 1
+        },
+        "NLktii5zvK": {
+          "rating": 3
+        }
+      }
     }
   ]
 }
