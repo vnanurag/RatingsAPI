@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const { getDB } = require('../database');
@@ -6,7 +7,7 @@ const { getUser } = require('./userService');
 
 /**
  * Gets the information of a butterfly
- * @param id butterfly id
+ * @param id {string} butterfly id
  */
 const getButterfly = async (id) => {
   const db = getDB();

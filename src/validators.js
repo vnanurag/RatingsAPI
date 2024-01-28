@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const v = require('@mapbox/fusspot');

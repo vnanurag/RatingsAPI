@@ -1,3 +1,4 @@
+// @ts-check
 'use strict';
 
 const { getDB } = require('../database');
@@ -5,7 +6,7 @@ const { sortRatings } = require('../utils');
 
 /**
  * Gets the information of a user
- * @param id user id
+ * @param id {string} user id
  */
 const getUser = async (id) => {
   const db = getDB();
