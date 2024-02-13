@@ -6,43 +6,6 @@ Data persistence is through a JSON-powered database called [`lowdb`](https://git
 
 Validation is built using an assertion library called [`@mapbox/fusspot`](https://github.com/mapbox/fusspot).
 
-## Task
-
-Butterfly critique is already a pretty great API, but we think it would be even better if it let users critique butterflies. Your task is to create new API endpoints that:
-
-1. Allow a user to rate butterflies on a scale of 0 through 5
-1. Allow retrieval of a list of a user's rated butterflies, sorted by rating
-
-You should also provide a small **write-up** that explains the decisions (for instance, the HTTP verbs for new endpoints) and trade-offs you made. If you add any new dependencies, spend some time talking about why you chose them.
-
-You are free to refactor or improve any code you think should be refactored, but please include a note about such changes in your write-up. Any changes you make should be scoped and explained as though you are opening a pull request against an existing codebase used in a production API service.
-
-If you have any questions or concerns, please do not hesitate to contact us!
-
-### What we're looking for
-
-* Your code should be extensible and reusable
-* Your code should be well tested
-* Your code should be tidy and adhere to conventions
-* Your changes should be well-scoped and explained in the write-up
-* Your write-up should be thoughtful and coherent
-
-❗️ Note: please do not write your name anywhere in your solution, since this prevents us from evaluating it anonymously. If you use git, please remember to remove the `.git` directory before submitting your solution.
-
-### Scoring rubric
-
-Points are awarded in the following categories:
-
-Communication in the write-up (2 points)
-Endpoint design (6 points)
-Database design (2 points)
-Testing (3 points)
-Tidiness, refactoring, and adherence to conventions (1 point)
-
-The maximum possible score is 14.
-
-## Developing
-
 ### Requirements
 
 * Node v18.x
